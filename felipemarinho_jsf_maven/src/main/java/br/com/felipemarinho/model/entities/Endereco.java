@@ -3,9 +3,14 @@ package br.com.felipemarinho.model.entities;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "endereco")
@@ -33,7 +38,41 @@ public class Endereco implements Serializable{
     @Column(name = "complemento")
     private String complemento;
     
+    @OneToOne(optional = true, fetch = FetchType.LAZY)
+    @ForeignKey(name = "EnderecoPessoa")
+    @JoinColumn(name = "idPessoa", referencedColumnName = "idPessoa")
+    private Pessoa pessoa;
+    
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ForeignKey(name = "EnderecoEstado")
+    @JoinColumn(name = "idEstado", referencedColumnName = "idEstado")
+    private Estado estado;
+    
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ForeignKey(name = "EnderecoTipoLogradouro")
+    @JoinColumn(name = "idTipoLogradouro", referencedColumnName = "idTipoLogradouro")
+    private TipoLogradouro tipoLogradouro;
+    
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ForeignKey(name = "EnderecoTipoEndereco")
+    @JoinColumn(name = "idTipoEndereco", referencedColumnName = "idTipoEndereco")
+    private TipoEndereco tipoEndereco;
+    
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ForeignKey(name = "EnderecoCidade")
+    @JoinColumn(name = "idCidade", referencedColumnName = "idCidade")
+    private Cidade cidade;
+    
+    
+    
     public Endereco() {
+        
+        this.pessoa = new Pessoa();
+        this.estado = new Estado();
+        this.tipoLogradouro = new TipoLogradouro();
+        this.tipoEndereco = new TipoEndereco();
+        this.cidade = new Cidade();
+        
     }
 
     public Integer getIdEndereco() {
@@ -83,6 +122,48 @@ public class Endereco implements Serializable{
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public TipoLogradouro getTipoLogradouro() {
+        return tipoLogradouro;
+    }
+
+    public void setTipoLogradouro(TipoLogradouro tipoLogradouro) {
+        this.tipoLogradouro = tipoLogradouro;
+    }
+
+    public TipoEndereco getTipoEndereco() {
+        return tipoEndereco;
+    }
+
+    public void setTipoEndereco(TipoEndereco tipoEndereco) {
+        this.tipoEndereco = tipoEndereco;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
+    
+    
 
     @Override
     public int hashCode() {
