@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory name="session">
+        
+        <!-- Configuração de conexão com o BD -->
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property><!-- Defino o driver de conexão com o BD -->
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/felipe_jsf_maven_db?createDatabaseIfNotExist=true</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+        
+        <!-- Habilita a exibição do SQL gerado pelo hibernate e formato-o -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        
+        <!-- habilitando a atualização automatica da estrutura de tabelas pelo hibernate -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        
+        <!-- Configurações do pool de conexões -->
+        <property name="c3p0.min_size">1</property>
+        <property name="c3p0.max_size">20</property>
+        <property name="c3p0.timeout">300</property>
+        <property name="c3p0.max_statements">80</property>
+        <property name="c3p0.idle_test_period">300</property>
+        
+        <!-- Lista de Entidades -->
+        <mapping class="br.com.felipemarinho.model.entities.Cidade"/>
+        <mapping class="br.com.felipemarinho.model.entities.Endereco"/>
+        <mapping class="br.com.felipemarinho.model.entities.Estado"/>
+        <mapping class="br.com.felipemarinho.model.entities.Pessoa"/>
+        <mapping class="br.com.felipemarinho.model.entities.Sexo"/>
+        <mapping class="br.com.felipemarinho.model.entities.TipoEndereco"/>
+        <mapping class="br.com.felipemarinho.model.entities.TipoLogradouro"/>
+    </session-factory>
+</hibernate-configuration>
